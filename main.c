@@ -15,7 +15,7 @@ int main()
 		led_bulb_set_white(test);
 	} 
 	else {
-		printf("could not connect to 192.168.0.14");
+		printf("could not connect to 192.168.0.14\n");
 	}
 	return 0;
 }
