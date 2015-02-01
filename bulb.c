@@ -29,17 +29,13 @@ static int _send_packet(const LEDBulb *bulb, char packet[]) {
 LEDBulb* init_led_bulb(const char *ip_address) {
 
 	LEDBulb *bulb = malloc(sizeof(LEDBulb));
-	if(bulb == NULL) {
-		return NULL;
+	if(bulb != NULL) {
+		bulb->socket = socket(AF_INET,SOCK_DGRAM,0);
+		bulb->remote.sin_family = AF_INET;
+		bulb->remote.sin_addr.s_addr = inet_addr(ip_address);
+		bulb->remote.sin_port = htons(LED_GATEWAY_PORT);
+		bulb->is_connected = 1;	
 	}
-
-
-	
-	bulb->socket = socket(AF_INET,SOCK_DGRAM,0);
-	bulb->remote.sin_family = AF_INET;
-	bulb->remote.sin_addr.s_addr = inet_addr(ip_address);
-	bulb->remote.sin_port = htons(LED_GATEWAY_PORT);
-	bulb->is_connected = 1;
 
 	return bulb;
 
